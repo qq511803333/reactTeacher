@@ -35,9 +35,9 @@ class App extends React.Component {
     console.log(height)
     return (
         <div >
-            <Layout style={{height: height+'px'}}>
+            <Layout style={{height: height+'px',backgroundColor: 'white'}}>
                 <Header >
-                     <div style={{fontSize: '20px', color: 'white'}}>学生管理系统</div>
+                     <div style={{fontSize: '20px', color: 'white'}}></div>
                 </Header>
                 <Content style={{marginTop: '10%'}}>
                     <Form onSubmit={this.handleSubmit}>
