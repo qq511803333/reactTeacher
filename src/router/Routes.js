@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
-import App from '../src/App';
-import FirstIndex from '../src/FirstIndex'
+import nightStudy from '../student/nightStudy'
+import App from '../App';
+import FirstIndex from '../FirstIndex';
 
 const Root = () => {
     return ( <div>
@@ -10,13 +10,15 @@ const Root = () => {
             <Route
                 path="/"
                 render={props => (
-                    <App>
+                    <FirstIndex>
                         <Switch>
-                            <Route path="/" exact component={App} />
+                            <Route path="/home" component={App} />
+                            <Route path="/student" component={nightStudy} />
                             {/*路由不正确时，默认跳回home页面*/}
+                            <Route path="/" exact component={App} />
                             <Route render={() => <Redirect to="/" />} />
                         </Switch>
-                    </App>
+                    </FirstIndex>
                 )}
             />
         </switch>
