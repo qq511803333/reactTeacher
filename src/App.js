@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import {
   Form, Icon, Input, Button, Layout
 } from 'antd';
+import jquery from  'jquery';
+import 'antd/dist/antd.css'
+import './App.css';
 const {
     Header, Footer, Sider, Content,
 } = Layout;
-import 'antd/dist/antd.css'
-import './App.css';
+
 
 class App extends React.Component {
   handleSubmit = (e) => {
@@ -29,13 +31,15 @@ class App extends React.Component {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
+    let height = jquery(window).height();
+    console.log(height)
     return (
-        <div style={{top: '50%', left: '50%'}}>
-            <Layout>
-                <Header>
-                     <div >学生管理系统</div>
+        <div >
+            <Layout style={{height: height+'px'}}>
+                <Header >
+                     <div style={{fontSize: '20px', color: 'white'}}>学生管理系统</div>
                 </Header>
-                <Content>
+                <Content style={{marginTop: '10%'}}>
                     <Form onSubmit={this.handleSubmit}>
                       <Form.Item>
                           {getFieldDecorator('userName', {
