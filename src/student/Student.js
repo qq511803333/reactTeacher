@@ -12,8 +12,10 @@ const { Sider } = Layout;
 class Student extends React.Component {
 
     render() {
+        let windowHeight = jquery(window).height();
+        let windowWidth =   jquery(window).width() - jquery('#studentSider').width();
         return (
-            <Layout >
+            <Layout style={{height: windowHeight+'px',width: windowWidth+'px'}}>
                 <Sider
                     id="studentSider"
                     trigger={null}
@@ -45,7 +47,7 @@ class Student extends React.Component {
                     </Menu>
                 </Sider>
                 <div >
-                    {this.props.children}
+                    {this.props.children }
                 </div>
             </Layout>
         );

@@ -10,7 +10,7 @@ const { Header, Sider, Content } = Layout;
 
 
 class nightStudy extends React.Component {
-    state = { visible: false }
+    state = { visible: false, loading: false  }
 
     showModal = () => {
         this.setState({
@@ -42,7 +42,7 @@ class nightStudy extends React.Component {
             tags: ['nice', 'developer'],
         }];
         return (
-            <div>
+            <div >
                 <Modal
                     title="Basic Modal"
                     visible={this.state.visible}
@@ -79,7 +79,7 @@ class nightStudy extends React.Component {
                             margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
                         }}
                         >
-                            <Table dataSource={data}>
+                            <Table dataSource={data} >
                                     <Column
                                         title="First Name"
                                         dataIndex="firstName"

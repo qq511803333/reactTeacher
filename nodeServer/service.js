@@ -34,6 +34,8 @@ app.post('/api/login',function(req,res){
     res.end();
 });
 
+
+
 app.get('/',function(req,res){
     res.end('hello word！\n');
 });

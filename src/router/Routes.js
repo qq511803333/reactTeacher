@@ -17,12 +17,12 @@ const Root = () => {
                             <Route  path="/home" component={App} />
                             <Route path="/student" render={props =>(
                                 <Student>
+                                    <Route  path="/student" exact component={nightStudy} />
                                     <Route  path="/student/student" exact component={App} />
                                     <Route  path="/student/night" exact component={nightStudy} />
                                     <Route  path="/student/studentManagerList" exact component={StudentManageList}/>
                                 </Student>
                               )}>
-
                             </Route>
                             {/*路由不正确时，默认跳回home页面*/}
                             <Route  path="/" exact component={App} />
