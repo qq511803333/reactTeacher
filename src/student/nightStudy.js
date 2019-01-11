@@ -1,85 +1,118 @@
 import React from 'react';
-import { Layout, Menu, Icon, Avatar,Dropdown, Button } from 'antd';
+import { Layout, Menu, Icon, Avatar, Modal,Table, Divider, Tag } from 'antd';
 import jquery from 'jquery';
 import '../css/nightStudy.css';
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+const { Column, ColumnGroup } = Table;
 
 const { Header, Sider, Content } = Layout;
 
 
 
 class nightStudy extends React.Component {
-    state = {
-        collapsed: false,
-    };
+    state = { visible: false }
 
-    toggle = () => {
+    showModal = () => {
         this.setState({
-            collapsed: !this.state.collapsed,
+            visible: true,
         });
     };
 
+    handleOk = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleCancel = (e) => {
+        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
 
     render() {
         let windowHeight = jquery(window).height();
-        console.log(windowHeight);
+        let windowWidth =   jquery(window).width() - jquery('#studentSider').width();
+        const data = [{
+            key: '1',
+            firstName: 'John',
+            address: 'New York No. 1 Lake Park',
+            tags: ['nice', 'developer'],
+        }];
         return (
-            <Layout style={{height: windowHeight+'px'}}>
-                <Sider
-                    trigger={null}
-                    collapsible
-                    collapsed={this.state.collapsed}
+            <div>
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.visible}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
                 >
-                    <div className="logo" />LOG
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
-                            <Icon type="user" />
-                            <span>nav 1</span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="video-camera" />
-                            <span>nav 2</span>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Icon type="upload" />
-                            <span>nav 3</span>
-                        </Menu.Item>
-                    </Menu>
-                </Sider>
-                <Layout>
-                    <Header style={{ background: '#fff', padding: 0 }}>
-                            <Icon
-                                id="HeaderIcon"
-                                className="trigger"
-                                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                                onClick={this.toggle}
-                            />
-                        <Menu id="HeaderMenu"
-                            onClick={this.handleClick}
-                            selectedKeys={[this.state.current]}
-                            mode="horizontal"
+                    <p>xxg</p>
+                </Modal>
+                <Layout style={{height: windowHeight+'px',width: windowWidth+'px'}}>
+                    <Layout>
+                        <Header style={{ background: '#fff', padding: 0 }}>
+                                <Icon
+                                    id="HeaderIcon"
+                                    className="trigger"
+                                />
+
+                            <Menu id="HeaderMenu"
+                                mode="horizontal">
+                                <SubMenu title={<span className="submenu-title-wrapper"> <Icon id='SubMenuIcon' type="question-circle" /></span>}>
+                                    <Menu.Item  key="setting:1" >
+                                        <a onClick={this.showModal}>
+                                            寻找管理员
+                                        </a>
+                                    </Menu.Item>
+                                </SubMenu>
+                                <SubMenu title={<span className="submenu-title-wrapper"><Avatar id="HeaderAva" size={30}
+                                                                                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" icon="user" />xxg</span>}>
+                                        <Menu.Item key="3">个人设置</Menu.Item>
+                                        <Menu.Item key="4">退出</Menu.Item>
+                                </SubMenu>
+                            </Menu>
+                        </Header>
+                        <Content style={{
+                            margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
+                        }}
                         >
-                            <SubMenu title={<span className="submenu-title-wrapper"><Avatar id="HeaderAva" size={30}
-                                                                                            src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" icon="user" /></span>}>
-                                <MenuItemGroup title="Item 1">
-                                    <Menu.Item key="setting:1">个人设置</Menu.Item>
-                                    <Menu.Item key="setting:2">退出</Menu.Item>
-                                </MenuItemGroup>
-                            </SubMenu>
+                            <Table dataSource={data}>
+                                    <Column
+                                        title="First Name"
+                                        dataIndex="firstName"
+                                        key="firstName"
+                                    />
+                                    <Column
+                                        title="Last Name"
+                                        dataIndex="lastName"
+                                        key="lastName"
+                                    />
+                                <Column
+                                    title="Age"
+                                    dataIndex="age"
+                                    key="age"
+                                />
 
-                        </Menu>
 
-
-                    </Header>
-                    <Content style={{
-                        margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280,
-                    }}
-                    >
-                        Content
-                    </Content>
-                </Layout>
-            </Layout>
+                                <Column
+                                    title="Action"
+                                    key="action"
+                                    render={(text, record) => (
+                                        <span>
+                                          <a href="javascript:;">Edit {record.lastName}</a>
+                                          <Divider type="vertical" />
+                                          <a href="javascript:;">Delete</a>
+                                        </span>
+                                    )}
+                                />
+                            </Table>
+                        </Content>
+                    </Layout>
+                 </Layout>
+            </div>
         );
     }
 }
