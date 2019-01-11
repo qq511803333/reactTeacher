@@ -2,6 +2,8 @@
 
 react node express 搭个小例子
 
+
+
 首先如何解决reactApp 跨域访问 node服务:
 
 ```  
@@ -50,3 +52,10 @@ react node express 搭个小例子
    
    
 ```
+
+*****
+写一下遇到的问题和额外知识：
+
+react-route 与  react-route-dom 有什么区别？
+react-router-dom只是4.0版本从react-router分离出来的部分
+
