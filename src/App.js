@@ -34,7 +34,7 @@ class App extends React.Component {
     let height = jquery(window).height();
     console.log(height)
     return (
-        <div >
+        <div style={{textAlign:'center'}}>
             <Layout style={{height: height+'px',backgroundColor: 'white'}}>
                 <Header >
                      <div style={{fontSize: '20px', color: 'white'}}></div>

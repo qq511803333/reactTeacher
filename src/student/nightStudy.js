@@ -1,16 +1,16 @@
 import React from 'react';
-import { Layout, Menu, Icon, Avatar, Modal,Table, Divider, Tag } from 'antd';
+import { Form, Layout, Menu, Icon, Avatar, Modal,Table, Divider, Tag, Input, Button } from 'antd';
 import jquery from 'jquery';
 import '../css/nightStudy.css';
 const SubMenu = Menu.SubMenu;
 const { Column, ColumnGroup } = Table;
-
 const { Header, Sider, Content } = Layout;
 
 
 
+
 class nightStudy extends React.Component {
-    state = { visible: false, loading: false  }
+    state = { visible: false, loading: false, userSetting: false  }
 
     showModal = () => {
         this.setState({
@@ -19,20 +19,37 @@ class nightStudy extends React.Component {
     };
 
     handleOk = (e) => {
-        console.log(e);
         this.setState({
             visible: false,
         });
     };
 
     handleCancel = (e) => {
-        console.log(e);
+        this.setState({
+            visible: false,
+        });
+    };
+
+    showUserSetting = (e) =>{
+        this.setState({
+            userSetting: true,
+        })
+    };
+
+    handleUserOk = (e) => {
+        this.setState({
+            visible: false,
+        });
+    };
+
+    handleUserCancel = (e) => {
         this.setState({
             visible: false,
         });
     };
 
     render() {
+        const { getFieldDecorator } = this.props.form;
         let windowHeight = jquery(window).height();
         let windowWidth =   jquery(window).width() - jquery('#studentSider').width();
         const data = [{
@@ -50,6 +67,27 @@ class nightStudy extends React.Component {
                     onCancel={this.handleCancel}
                 >
                     <p>xxg</p>
+                </Modal>
+                <Modal
+                    title="Basic Modal"
+                    visible={this.state.userSetting}
+                    onOk={this.handleOk}
+                    onCancel={this.handleCancel}
+                >
+                    <Form onsubmit={this.handleSubmit}>
+                        <Form.Item
+                            label="Password"
+                        >
+                            {getFieldDecorator('password', {
+                                rules: [{
+                                    required: true, message: 'Please input your password!',
+                                }, {
+                                }],
+                            })(
+                                <Input type="password" />
+                            )}
+                        </Form.Item>
+                    </Form>
                 </Modal>
                 <Layout style={{height: windowHeight+'px',width: windowWidth+'px'}}>
                     <Layout>
@@ -70,7 +108,11 @@ class nightStudy extends React.Component {
                                 </SubMenu>
                                 <SubMenu title={<span className="submenu-title-wrapper"><Avatar id="HeaderAva" size={30}
                                                                                                 src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" icon="user" />xxg</span>}>
-                                        <Menu.Item key="3">个人设置</Menu.Item>
+                                        <Menu.Item key="3">
+                                            <a onClick={this.showUserSetting}>
+                                                个人设置
+                                            </a>
+                                        </Menu.Item>
                                         <Menu.Item key="4">退出</Menu.Item>
                                 </SubMenu>
                             </Menu>
@@ -116,5 +158,5 @@ class nightStudy extends React.Component {
         );
     }
 }
-
-export  default nightStudy;
+const nightStudys = Form.create({ name: 'nightStudy' })(nightStudy);
+export  default nightStudys;
