@@ -14,6 +14,7 @@ class App extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+
       if (err) {
         console.log('Received values of form: ', values);
       }else {
@@ -23,9 +24,11 @@ class App extends React.Component {
                   headers: {
                       'Content-Type': 'application/json'
                   },
-                  body: JSON.stringify({name: '11111'})
+                  body: JSON.stringify({userName: values.userName, password: values.password})
               }
-              ).then(res => console.log(res));
+              ).then(res => res.json())
+              .then(responseJsonData => console.log(responseJsonData));
+          console.log(res);
       }
     });
   }

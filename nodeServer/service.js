@@ -6,32 +6,48 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-const conn = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : 'guang888',
-    database : 'mydatabase'
-});
+
 
 
 
 // const port = process.env.PORT || 8889;
 
 app.post('/api/login',function(req,res){
+
+    const conn = mysql.createConnection({
+        host     : 'localhost',
+        user     : 'root',
+        password : '123456',
+        database : 'mydatabase'
+    });
+    let obj = {};
     conn.connect();
     conn.query('select * from employees', function(err, rows){
         if(err) return  err;
+
         if(rows.length > 0){
-            for(let res in rows){
-                if(rows[res].username === req.body.username  && rows[res].password === req.body.password){
-                    res.send({status: 200, username: req.body.username, role: req.body.role})
-                }else{
-                    res.send({status: 201, username: 'undefined'})
+            for(let result in rows){
+                if(rows[result].username === req.body.userName  && rows[result].password === req.body.password){
+                    obj.username = rows[result].username;
+                    obj.password = rows[result].password;
+                    obj.stutes = 200;
+                    return obj
                 }
+                // else if(rows[result].username != req.body.userName){
+                //     obj.username = undefined;
+                //     obj.stutes = 202;
+                //     console.log(rows[result].username);
+                // }else if(rows[result].password != req.body.password){
+                //     obj.password = undefined;
+                //     obj.stutes = 202;
+                //     console.log(obj);
+                // }
             }
         }
     });
-    res.end();
+    conn.end();
+    console.log(obj);
+    res.send(obj);
 });
 
 

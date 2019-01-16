@@ -7,8 +7,6 @@ const { Column, ColumnGroup } = Table;
 const { Header, Sider, Content } = Layout;
 
 
-
-
 class nightStudy extends React.Component {
     state = { visible: false, loading: false, userSetting: false  }
 
