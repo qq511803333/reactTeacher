@@ -28,7 +28,6 @@ class App extends React.Component {
               }
               ).then(res => res.json())
               .then(responseJsonData => console.log(responseJsonData));
-          console.log(res);
       }
     });
   }

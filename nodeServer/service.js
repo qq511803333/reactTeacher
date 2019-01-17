@@ -22,32 +22,27 @@ app.post('/api/login',function(req,res){
     });
     let obj = {};
     conn.connect();
-    conn.query('select * from employees', function(err, rows){
-        if(err) return  err;
+    conn.query({
+        sql :'select * from employees where username = ? and password = ?',
+        timeout: 40000,
+    },[req.body.userName,req.body.password], function(err, rows,fields){
 
-        if(rows.length > 0){
-            for(let result in rows){
-                if(rows[result].username === req.body.userName  && rows[result].password === req.body.password){
-                    obj.username = rows[result].username;
-                    obj.password = rows[result].password;
+        if(err) return  console.log(err);
+        let result = JSON.parse(JSON.stringify(rows))[0];
+                if(result.username === req.body.userName  && result.password === req.body.password){
+                    obj.username = result.username;
+                    obj.password = result.password;
                     obj.stutes = 200;
-                    return obj
+                }else {
+                    obj.stutes = 201;
                 }
-                // else if(rows[result].username != req.body.userName){
-                //     obj.username = undefined;
-                //     obj.stutes = 202;
-                //     console.log(rows[result].username);
-                // }else if(rows[result].password != req.body.password){
-                //     obj.password = undefined;
-                //     obj.stutes = 202;
-                //     console.log(obj);
-                // }
-            }
-        }
     });
-    conn.end();
-    console.log(obj);
-    res.send(obj);
+
+    conn.end(function (err) {
+        if(err) return;
+        res.send(obj);
+    });
+
 });
 
 
