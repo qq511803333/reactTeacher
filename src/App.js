@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Form, Icon, Input, Button, Layout
+  Form, Icon, Input, Button, Layout, message
 } from 'antd';
 import jquery from  'jquery';
 import 'antd/dist/antd.css'
@@ -11,6 +11,11 @@ const {
 
 
 class App extends React.Component {
+
+  constructor(){
+      super()
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -18,6 +23,7 @@ class App extends React.Component {
       if (err) {
         console.log('Received values of form: ', values);
       }else {
+
           let res = fetch('/api/login',
               {
                   method: 'POST',
@@ -27,16 +33,26 @@ class App extends React.Component {
                   body: JSON.stringify({userName: values.userName, password: values.password})
               }
               ).then(res => res.json())
-              .then(responseJsonData => console.log(responseJsonData));
+              .then(function(responseJsonData){
+                  if(responseJsonData.stutes==200){
+                      console.log(responseJsonData);
+                      let history = this.props.history;
+                      let path = '/student'
+                      history.push(path);
+                  }else {
+                      message.success('用户名或密码错误', 5);
+                  }
+              }.bind(this));
       }
     });
   }
   render() {
     const { getFieldDecorator } = this.props.form;
     let height = jquery(window).height();
-    console.log(height)
+
     return (
         <div style={{textAlign:'center'}}>
+
             <Layout style={{height: height+'px',backgroundColor: 'white'}}>
                 <Header >
                      <div style={{fontSize: '20px', color: 'white'}}></div>

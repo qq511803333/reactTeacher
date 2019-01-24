@@ -10,8 +10,13 @@ const { Sider } = Layout;
 
 
 class Student extends React.Component {
+    constructor(props){
+        super(props);
+        console.log(this.props.params)
+    }
 
     render() {
+
         let windowHeight = jquery(window).height();
         let windowWidth =   jquery(window).width() - jquery('#studentSider').width();
         return (

@@ -1,5 +1,6 @@
 import React from 'react';
 import {  Route, Switch, Redirect } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import nightStudy from '../student/nightStudy'
 import Student from '../student/Student';
 import App from '../App';
@@ -10,6 +11,7 @@ const Root = () => {
     return ( <div>
         <switch>
             <Route
+                history={createBrowserHistory()}
                 path="/"
                 render={props => (
                     <FirstIndex>
