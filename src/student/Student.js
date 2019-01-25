@@ -12,7 +12,7 @@ const { Sider } = Layout;
 class Student extends React.Component {
     constructor(props){
         super(props);
-        console.log(this.props.params)
+        console.log(this.props)
     }
 
     render() {

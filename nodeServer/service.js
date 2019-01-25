@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
+
 const app = express();
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 
 // const port = process.env.PORT || 8889;
@@ -30,6 +33,7 @@ app.post('/api/login',function(req,res){
                 obj.username = result.username;
                 obj.password = result.password;
                 obj.stutes = 200;
+                req.cookies.login.name
             }else {
                 obj.stutes = 201;
             }
