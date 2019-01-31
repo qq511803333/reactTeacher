@@ -3,7 +3,8 @@ import {
   Form, Icon, Input, Button, Layout, message
 } from 'antd';
 import jquery from  'jquery';
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.css';
+import Cookies from 'js-cookie'
 import './App.css';
 const {
     Header, Footer, Sider, Content,
@@ -35,7 +36,9 @@ class App extends React.Component {
               ).then(res => res.json())
               .then(function(responseJsonData){
                   if(responseJsonData.stutes==200){
-                      console.log(responseJsonData);
+                     // console.log(responseJsonData);
+                      Cookies.set('userName', 123);
+
                       let history = this.props.history;
                       let path = '/student'
                       history.push(path);

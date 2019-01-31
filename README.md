@@ -59,3 +59,21 @@ react node express 搭个小例子
 react-route 与  react-route-dom 有什么区别？
 react-router-dom只是4.0版本从react-router分离出来的部分
 
+如何存储cookie？
+我是利用js-cookie包来实现的，
+```
+cnpm install js-cookie --save
+```
+你想存储或者删除cookie的地方
+```
+import Cookies from 'js-cookie'
+
+Cookies.set('userName', 123); 就可以把我们想存的值通过key value的方式存储起来
+
+Cookies.get('userName');   可以把我们上面存储的cookie拿出来供我们使用
+```
+
+
+
+
+

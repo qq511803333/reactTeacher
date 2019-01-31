@@ -20,20 +20,21 @@ app.post('/api/login',function(req,res){
         database : 'mydatabase'
     });
     let obj = {};
+
     conn.connect();
     conn.query({
         sql :'select * from employees where username = ? and password = ?',
     },[req.body.userName,req.body.password], function(err, rows,fields){
 
         if(err) return  console.log(err);
-        console.log(rows);
         if(rows.length > 0){
+
             let result = JSON.parse(JSON.stringify(rows))[0];
             if(result.username === req.body.userName  && result.password === req.body.password){
                 obj.username = result.username;
                 obj.password = result.password;
                 obj.stutes = 200;
-                req.cookies.login.name
+                console.log(req.cookies)
             }else {
                 obj.stutes = 201;
             }

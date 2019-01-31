@@ -2,13 +2,14 @@ import React from 'react';
 import { Form, Layout, Menu, Icon, Avatar, Modal,Table, Divider, Tag, Input, Button } from 'antd';
 import jquery from 'jquery';
 import '../css/nightStudy.css';
+import Cookies from 'js-cookie'
 const SubMenu = Menu.SubMenu;
 const { Column, ColumnGroup } = Table;
 const { Header, Sider, Content } = Layout;
 
 
 class nightStudy extends React.Component {
-    state = { visible: false, loading: false, userSetting: false  }
+    state = { editVisible: false, loading: false, userSetting: false  }
 
     showModal = () => {
         this.setState({
@@ -18,19 +19,20 @@ class nightStudy extends React.Component {
 
     handleOk = (e) => {
         this.setState({
-            visible: false,
+            editVisible: false,
         });
     };
 
     handleCancel = (e) => {
+        console.log(1111)
         this.setState({
-            visible: false,
+            editVisible: false,
         });
     };
 
     showUserSetting = (e) =>{
         this.setState({
-            userSetting: true,
+            editVisible: true,
         })
     };
 
@@ -47,6 +49,7 @@ class nightStudy extends React.Component {
     };
 
     render() {
+
         const { getFieldDecorator } = this.props.form;
         let windowHeight = jquery(window).height();
         let windowWidth =   jquery(window).width() - jquery('#studentSider').width();
@@ -67,12 +70,12 @@ class nightStudy extends React.Component {
                     <p>xxg</p>
                 </Modal>
                 <Modal
-                    title="Basic Modal"
-                    visible={this.state.userSetting}
+                    title="Basic Modal1"
+                    visible={this.state.editVisible}
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <Form onsubmit={this.handleSubmit}>
+                    <Form onSubmit={this.handleSubmit}>
                         <Form.Item
                             label="Password"
                         >
@@ -105,7 +108,7 @@ class nightStudy extends React.Component {
                                     </Menu.Item>
                                 </SubMenu>
                                 <SubMenu title={<span className="submenu-title-wrapper"><Avatar id="HeaderAva" size={30}
-                                                                                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" icon="user" />xxg</span>}>
+                                                                                                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" icon="user" />{Cookies.get('userName')}</span>}>
                                         <Menu.Item key="3">
                                             <a onClick={this.showUserSetting}>
                                                 个人设置
